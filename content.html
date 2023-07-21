@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog Creation Tool</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-image:url(cm.png);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+    header h1:hover{
+          background-color: aqua;
+    }
+
+    
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    input[type="file"] {
+      margin-top: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .blog-element {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    .blog-element h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    .blog-element p {
+      margin-top: 0;
+    }
+
+    .blog-element img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 10px;
+    }
+
+    .blog-element iframe {
+      width: 100%;
+      height: 315px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blog Creation Tool</h1>
+  </header>
+  <div class="container">
+    <form id="blogForm">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <label for="content">Content:</label>
+      <textarea id="content" name="content" rows="4" required></textarea>
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image">
+      <label for="video">Video URL:</label>
+      <input type="text" id="video" name="video">
+      <input type="submit" value="Create Blog">
+    </form>
+    <div id="blogs"></div>
+  </div>
+
+  <script>
+    // JavaScript code
+    const blogForm = document.getElementById('blogForm');
+    const blogsContainer = document.getElementById('blogs');
+
+    blogForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const titleInput = document.getElementById('title');
+      const contentInput = document.getElementById('content');
+      const imageInput = document.getElementById('image');
+      const videoInput = document.getElementById('video');
+
+      const title = titleInput.value;
+      const content = contentInput.value;
+      const image = imageInput.value;
+      const video = videoInput.value;
+
+      createBlog(title, content, image, video);
+
+      titleInput.value = '';
+      contentInput.value = '';
+      imageInput.value = '';
+      videoInput.value = '';
+    });
+
+    function createBlog(title, content, image, video) {
+      const blogElement = document.createElement('div');
+      blogElement.classList.add('blog-element');
+
+      const titleElement = document.createElement('h2');
+      titleElement.textContent = title;
+
+      const contentElement = document.createElement('p');
+      contentElement.textContent = content;
+
+      blogElement.appendChild(titleElement);
+      blogElement.appendChild(contentElement);
+
+      if (image) {
+        const imageElement = document.createElement('img');
+        imageElement.src = image;
+        blogElement.appendChild(imageElement);
+      }
+
+      if (video) {
+        const videoElement = document.createElement('iframe');
+        videoElement.src = video;
+        blogElement.appendChild(videoElement);
+      }
+
+      blogsContainer.appendChild(blogElement);
+    }
+  </script>
+</body>
+</html>
